@@ -1,0 +1,13 @@
+.user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: -2px;
+}
+/*button*/
+.btn-primary {
+    background-color: #2196F3;
+    border-color: #3F51B5;
+}
