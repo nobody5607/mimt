@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="box box-primary">
     <div class="box-header">
-         <i class="fa fa-table"></i> <?= "<?= " ?> Html::encode($this->title) ?> 
+         <i class=""></i> <?= "<?= " ?> Html::encode($this->title) ?>
          <div class="pull-right">
              <?php 
                echo "<?= "?>Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>']). ' ' .
@@ -90,7 +90,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 	    [
 		'class' => 'appxq\sdii\widgets\ActionColumn',
 		'contentOptions' => ['style'=>'width:180px;text-align: center;'],
-		'template' => '{view} {update} {delete}',
+		'template' => '{update} {delete}',
                 'buttons'=>[
                     'update'=>function($url, $model){
                         return Html::a('<span class="fa fa-pencil"></span> '.Yii::t('app', 'Update'),
@@ -180,10 +180,20 @@ $('#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-g
 		url
 	    ).done(function(result) {
 		if(result.status == 'success') {
-		    <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.status,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
 		    $.pjax.reload({container:'#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid-pjax'});
 		} else {
-		    <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.status,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
 		}
 	    }).fail(function() {
 		<?= "<?= " ?>SDNoty::show("'" . SDHtml::getMsgError() . "Server Error'", '"error"')?>
@@ -211,10 +221,20 @@ function selection<?= Inflector::classify(StringHelper::basename($generator->mod
 	    dataType: 'JSON',
 	    success: function(result, textStatus) {
 		if(result.status == 'success') {
-		    <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.status,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
 		    $.pjax.reload({container:'#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-grid-pjax'});
 		} else {
-		    <?= "<?= " ?>SDNoty::show('result.message', 'result.status')?>
+            swal({
+                title: result.status,
+                text: result.message,
+                type: result.status,
+                timer: 2000
+            });
 		}
 	    }
 	});

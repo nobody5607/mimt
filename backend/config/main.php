@@ -48,13 +48,12 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ], 
-        
-        
- 
-         
+
     ],
     'modules'=>[
-
+        'products' => [
+            'class' => 'backend\modules\products\Module',
+        ],
         'gridview' =>  [
                 'class' => '\kartik\grid\Module'
         ],

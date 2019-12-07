@@ -30,16 +30,22 @@ class AppComponent extends Component
             'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
             'items' => [
                 ['label' => \Yii::t('appmenu', 'Home'), 'icon' => 'home', 'url' => ['/']],
-                ['label' => \Yii::t('appmenu', 'About'), 'icon' => 'user', 'url' => ['/site/about']],
-                ['label' => \Yii::t('appmenu', 'Contact'), 'icon' => 'phone-square', 'url' => ['/site/contact']],
-                ['label' => \Yii::t('appmenu', 'Informations'), 'icon' => 'microphone', 'url' => ['/informations/index']],
-//                    ['label' => \Yii::t('appmenu','Clinical Data Management'), 'icon' => '', 'url' => ['/'], 'visible' => !Yii::$app->user->isGuest],
 
+                ['label' => \Yii::t('app', 'รายการสินค้า'), 'icon' => '', 'url' => ['/products/product/index']],
+                ['label' => \Yii::t('app', 'หมวดหมู่'), 'icon' => '', 'url' => ['/products/categorys/index']],
                 [
                     'label' => Yii::t('appmenu', 'Member Management'),
                     'icon' => 'users', 'url' => ['/user/admin/index'],
                     'visible' => \Yii::$app->user->can('admin')
                 ],
+
+
+                ['label' => \Yii::t('appmenu', 'About'), 'icon' => 'user', 'url' => ['/site/about']],
+                ['label' => \Yii::t('appmenu', 'Contact'), 'icon' => 'phone-square', 'url' => ['/site/contact']],
+                ['label' => \Yii::t('appmenu', 'Informations'), 'icon' => 'microphone', 'url' => ['/informations/index']],
+//                    ['label' => \Yii::t('appmenu','Clinical Data Management'), 'icon' => '', 'url' => ['/'], 'visible' => !Yii::$app->user->isGuest],
+
+
                 [
                     'label' => Yii::t('appmenu', 'System Config'),
                     'visible' => \Yii::$app->user->can('admin'),

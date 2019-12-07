@@ -63,6 +63,16 @@ return [
     'Confirm Password'=>'ยืนยันรหัสผ่าน',
     'Sitecode'=>'หน่วยงาน',
     'Accounts'=>'บัญชี',
-    'Categorys'=>'หมวดหมู่'
+    'Categorys'=>'หมวดหมู่',
+
+    'Update successfully'=>'แก้ไขสำเร็จ',
+    'Can not update the data.'=>'แก้ไขไม่สำเร็จ',
+    'Create successfully'=>'เพิ่มข้อมูลสำเร็จ',
+    'Can not create the data.'=>'เพิ่มข้อมูลไม่สำเร็จ',
+
+    'Delete successfully'=>'ลบข้อมูลสำเร็จ',
+    'Can not delete the data.'=>'ลบข้อมูลไม่สำเร็จ',
+    ''=>'',
+    ''=>'',
     
 ];

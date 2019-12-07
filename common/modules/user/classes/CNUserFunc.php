@@ -9,6 +9,7 @@
 namespace common\modules\user\classes;
 
 use appxq\sdii\utils\VarDumper;
+use common\modules\user\models\Profile;
 
 /**
  * Description of CNUser
@@ -16,6 +17,18 @@ use appxq\sdii\utils\VarDumper;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 class CNUserFunc {
+    public static function getFullNameByUserId($user_id){
+        $profile = Profile::findOne($user_id);
+        $fullName = null;
+        $fname = null;
+        $lname = null;
+        if($profile){
+            $fname = isset($profile->firstname)?$profile->firstname:'';
+            $lname = isset($profile->lastname)?$profile->lastname:'';
+            $fullName = "{$fname} {$lname}";
+        }
+        return $fullName;
+    }
     public static function getSitecode(){
         $sitecode = isset(\Yii::$app->user->identity->profile->sitecode)?\Yii::$app->user->identity->profile->sitecode:'';
         return $sitecode;

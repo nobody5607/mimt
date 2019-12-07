@@ -1,42 +1,11 @@
 <?php
-/**
- * This is the template for generating a CRUD controller class file.
- */
 
-use yii\db\ActiveRecordInterface;
-use yii\helpers\StringHelper;
-
-
-/* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
-
-$controllerClass = StringHelper::basename($generator->controllerClass);
-$modelClass = StringHelper::basename($generator->modelClass);
-$searchModelClass = StringHelper::basename($generator->searchModelClass);
-if ($modelClass === $searchModelClass) {
-    $searchModelAlias = $searchModelClass . 'Search';
-}
-
-/* @var $class ActiveRecordInterface */
-$class = $generator->modelClass;
-$pks = $class::primaryKey();
-$urlParams = $generator->generateUrlParams();
-$actionParams = $generator->generateActionParams();
-$actionParamComments = $generator->generateActionParamComments();
-
-echo "<?php\n";
-?>
-
-namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>;
+namespace backend\modules\products\controllers;
 
 use Yii;
-use <?= ltrim($generator->modelClass, '\\') ?>;
-<?php if (!empty($generator->searchModelClass)): ?>
-use <?= ltrim($generator->searchModelClass, '\\') . (isset($searchModelAlias) ? " as $searchModelAlias" : "") ?>;
-<?php else: ?>
-use yii\data\ActiveDataProvider;
-<?php endif; ?>
-use <?= ltrim($generator->baseControllerClass, '\\') ?>;
+use backend\modules\products\models\Categorys;
+use backend\modules\products\models\CategorysSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -44,9 +13,9 @@ use yii\web\Response;
 use appxq\sdii\helpers\SDHtml;
 
 /**
- * <?= $controllerClass ?> implements the CRUD actions for <?= $modelClass ?> model.
+ * CategorysController implements the CRUD actions for Categorys model.
  */
-class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
+class CategorysController extends Controller
 {
 
     public function beforeAction($action) {
@@ -61,57 +30,47 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     }
     
     /**
-     * Lists all <?= $modelClass ?> models.
+     * Lists all Categorys models.
      * @return mixed
      */
     public function actionIndex()
     {
-<?php if (!empty($generator->searchModelClass)): ?>
-        $searchModel = new <?= isset($searchModelAlias) ? $searchModelAlias : $searchModelClass ?>();
+        $searchModel = new CategorysSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-<?php else: ?>
-        $dataProvider = new ActiveDataProvider([
-            'query' => <?= $modelClass ?>::find(),
-        ]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-<?php endif; ?>
     }
 
     /**
-     * Displays a single <?= $modelClass ?> model.
-     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
+     * Displays a single Categorys model.
+     * @param integer $id
      * @return mixed
      */
-    public function actionView(<?= $actionParams ?>)
+    public function actionView($id)
     {
 	if (Yii::$app->getRequest()->isAjax) {
 	    return $this->renderAjax('view', [
-		'model' => $this->findModel(<?= $actionParams ?>),
+		'model' => $this->findModel($id),
 	    ]);
 	} else {
 	    return $this->render('view', [
-		'model' => $this->findModel(<?= $actionParams ?>),
+		'model' => $this->findModel($id),
 	    ]);
 	}
     }
 
     /**
-     * Creates a new <?= $modelClass ?> model.
+     * Creates a new Categorys model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
 	if (Yii::$app->getRequest()->isAjax) {
-	    $model = new <?= $modelClass ?>();
+	    $model = new Categorys();
 
 	    if ($model->load(Yii::$app->request->post())) {
             $model->rstat = 1;
@@ -133,15 +92,15 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     }
 
     /**
-     * Updates an existing <?= $modelClass ?> model.
+     * Updates an existing Categorys model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
+     * @param integer $id
      * @return mixed
      */
-    public function actionUpdate(<?= $actionParams ?>)
+    public function actionUpdate($id)
     {
 	if (Yii::$app->getRequest()->isAjax) {
-	    $model = $this->findModel(<?= $actionParams ?>);
+	    $model = $this->findModel($id);
 
 	    if ($model->load(Yii::$app->request->post())) {
         $model->rstat = 1;
@@ -163,15 +122,15 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     }
 
     /**
-     * Deletes an existing <?= $modelClass ?> model.
+     * Deletes an existing Categorys model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
+     * @param integer $id
      * @return mixed
      */
-    public function actionDelete(<?= $actionParams ?>)
+    public function actionDelete($id)
     {
 	if (Yii::$app->getRequest()->isAjax) {
-        $model = $this->findModel(<?= $actionParams ?>);
+        $model = $this->findModel($id);
         $model->rstat = 3;
         $model->update_date = date('Y-m-d H:i:s');
         $model->update_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
@@ -192,7 +151,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 	    if (isset($_POST['selection'])) {
 		foreach ($_POST['selection'] as $id) {
 		    $model = $this->findModel($id);
-            $model = $this->findModel(<?= $actionParams ?>);
+            $model = $this->findModel($id);
             $model->rstat = 3;
             $model->update_date = date('Y-m-d H:i:s');
             $model->update_by = isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
@@ -208,26 +167,15 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
     }
     
     /**
-     * Finds the <?= $modelClass ?> model based on its primary key value.
+     * Finds the Categorys model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * <?= implode("\n     * ", $actionParamComments) . "\n" ?>
-     * @return <?=                   $modelClass ?> the loaded model
+     * @param integer $id
+     * @return Categorys the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel(<?= $actionParams ?>)
+    protected function findModel($id)
     {
-<?php
-if (count($pks) === 1) {
-    $condition = '$id';
-} else {
-    $condition = [];
-    foreach ($pks as $pk) {
-        $condition[] = "'$pk' => \$$pk";
-    }
-    $condition = '[' . implode(', ', $condition) . ']';
-}
-?>
-        if (($model = <?= $modelClass ?>::findOne(<?= $condition ?>)) !== null) {
+        if (($model = Categorys::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
