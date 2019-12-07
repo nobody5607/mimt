@@ -2,6 +2,7 @@
 
 namespace backend\components;
 
+use appxq\sdii\utils\VarDumper;
 use Yii;
 use yii\base\Component;
 use yii\helpers\Url;
@@ -90,6 +91,7 @@ class AppComponent extends Component
         $lastname = isset(Yii::$app->user->identity->profile->lastname) ? Yii::$app->user->identity->profile->lastname : "";
         $fullName = "{$firstname} {$lastname}";
         $storageUrl = isset(\Yii::$app->params['storageUrl']) ? \Yii::$app->params['storageUrl'] : '';
+
         $img = isset(Yii::$app->user->identity->profile->avatar_path) ? Yii::$app->user->identity->profile->avatar_path : '';
         $noimage = Url::to("@web/img/noimage.png");
         if($img == ''){

@@ -1,0 +1,1 @@
+<?phpnamespace frontend\classes;class CNProduct{    public static function getProductById($pro_id){        $product = \backend\modules\products\models\Products::find()            ->where('id=:id AND rstat not in(0,3)',[                ':id' => $pro_id            ])->one();        return $product;    }}

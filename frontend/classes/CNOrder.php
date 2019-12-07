@@ -1,0 +1,1 @@
+<?phpnamespace frontend\classes;class CNOrder{    public static function getOrderDetailByOrderId($order_id){        $detail = \backend\modules\products\models\OrderDetails::find()            ->where('order_id=:id',[                ':id'=>$order_id            ])            ->all();        return $detail;    }}

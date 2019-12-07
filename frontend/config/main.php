@@ -86,6 +86,9 @@ return [
          
     ],
     'modules'=>[
+        'core' => [
+            'class' => 'backend\modules\core\Module',
+        ],
         'user' => [
             'class' => 'dektrium\user\Module',
             'enableConfirmation' => FALSE,
