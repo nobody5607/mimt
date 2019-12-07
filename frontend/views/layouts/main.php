@@ -11,7 +11,8 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 \cpn\chanpan\assets\bootbox\BootBoxAsset::register($this);
 \cpn\chanpan\assets\notify\NotifyAsset::register($this);
-
+$name = isset(Yii::$app->params['name_app'])?Yii::$app->params['name_app']:'';
+Yii::$app->name = $name;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -19,26 +20,15 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <?php Yii::$app->meta->displaySeo() ?>
-    <meta property="fb:app_id" content="177188695765715" />
-    <meta property="og:locale" content="th_TH" />
-    <meta property="og:type" content="article" />
     <meta property="og:title" content="<?= $this->title ?>" />
-    <meta property="og:url" content="<?= \yii\helpers\Url::canonical() ?>" />
-    <meta property="og:site_name" content="ProgrammerThailand.com" />
-    <meta property="article:publisher" content="https://www.facebook.com/pgmtl/" />
-
-    <meta name="twitter:card" content="summary"/>
-    <meta name="twitter:title" content="<?= $this->title ?>"/>
-    <meta name="twitter:site" content="ProgrammerThailand.com"/>
-    <meta name="twitter:domain" content="https://programmerthailand.com"/>
-    
-    
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+    <?php $baseUrl = $this->theme->baseUrl;?>
+    <link rel="stylesheet" href="<?= $baseUrl;?>/css/custom.css"/>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -54,13 +44,8 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        
-        
-        ['label' => 'Brand', 'url' => ['/products/stock-brand']],
-        ['label' => 'Category', 'url' => ['/products/stock-category']],
-        ['label' => 'Product Doc', 'url' => ['/products/stock-product-docs']],
-        ['label' => 'Product Group', 'url' => ['/products/stock-product-group']],
-        ['label' => 'Product Items', 'url' => ['/products/stock-product-items']],
+//        ['label' => 'Category', 'url' => ['/products/stock-category']],
+        ['label' => 'รายการสินค้า', 'url' => ['/product/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/registration/register']];

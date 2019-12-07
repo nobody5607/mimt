@@ -2,6 +2,7 @@
 
 namespace backend\modules\products\models;
 
+use appxq\sdii\utils\VarDumper;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -41,10 +42,30 @@ class ProductsSearch extends Products
      */
     public function search($params)
     {
-        $query = Products::find()->where('rstat not in(0,3)')->orderBy(['order'=>SORT_ASC]);
+        $data = null;
+        $query = Products::find()->where('rstat not in(0,3)');
+        if(isset($params['last-sort'])){
+            $data = $query->orderBy(['id'=>SORT_DESC]);
+        }else{
+            $data = $query->orderBy(['order'=>SORT_ASC]);
+        }
+
+        if(isset($params['sort-price']) && $params['sort-price'] == 'desc'){
+            $data = $query->orderBy(['price'=>SORT_DESC]);
+        }else if(isset($params['sort-price']) && $params['sort-price'] == 'asc'){
+            $data = $query->orderBy(['price'=>SORT_ASC]);
+        }else{
+            $data = $query->orderBy(['order'=>SORT_ASC]);
+        }
+        if(isset($params['term'])){
+            $data = $query->where('name like :name OR detail like :detail AND rstat not in(0,3)',[
+                ':name'=>"%{$params['term']}%",
+                ':detail'=>"%{$params['term']}%"
+            ]);
+        }
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $data,
             'pagination' => [
                 'pageSize' => 100,
             ],

@@ -38,7 +38,11 @@ use appxq\sdii\helpers\SDHtml;
             ->dropDownList(\yii\helpers\ArrayHelper::map(\backend\modules\products\models\Categorys::find()->where('rstat not in(0,3)')->all(),'id','name'),['prompt'=>'--เลือกหมวดหมู่สินค้า--'])?>
 
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'detail')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'detail')->widget(\cpn\chanpan\widgets\CNFroalaEditorWidget::className(), [
+            'options' => ['rows' => 6],
+            'toolbar_size' => 'sm',
+
+        ]) ?>
         <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'order')->textInput(['type'=>'number']) ?>
     </div>

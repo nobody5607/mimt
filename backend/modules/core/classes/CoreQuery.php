@@ -23,14 +23,14 @@ use yii\helpers\Inflector;
 class CoreQuery {
 
     public static function getOptionsParams() {
-	$model = \common\models\Options::find()
-		->select('label, value')
-		->all();
-        if($model){
-            $params = \yii\helpers\ArrayHelper::map($model, 'label', 'value');
-            return $params;
-        }
-	return [];
+        $model = \common\models\Options::find()
+            ->select('label, value')
+            ->all();
+            if($model){
+                $params = \yii\helpers\ArrayHelper::map($model, 'label', 'value');
+                return $params;
+            }
+        return [];
     }
     
     public static function getAllOptions($term) {

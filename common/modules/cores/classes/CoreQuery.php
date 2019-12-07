@@ -14,13 +14,13 @@ namespace common\modules\cores\classes;
 class CoreQuery {
     //put your code here
     public static function getOptionsParams() {
-	$model = \common\models\CoreOptions::find()
-		->select('option_name, option_value')
-		->all();
+        $model = \common\models\Options::find()
+            ->select('label, value')
+            ->all();
         if($model){
-            $params = \yii\helpers\ArrayHelper::map($model, 'option_name', 'option_value');
+            $params = \yii\helpers\ArrayHelper::map($model, 'label', 'value');
             return $params;
         }
-	return [];
+        return [];
     }
 }
