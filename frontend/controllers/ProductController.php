@@ -6,10 +6,12 @@ use appxq\sdii\utils\VarDumper;
 use backend\modules\products\models\Carts;
 use backend\modules\products\models\Products;
 use backend\modules\products\models\ProductsSearch;
+use backend\modules\products\models\Shippings;
 use common\modules\user\classes\CNUserFunc;
 use cpn\chanpan\classes\CNMessage;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\helpers\Json;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -51,11 +53,17 @@ class ProductController extends Controller
             return CNMessage::getError("Error");
         }
     }
-    public function actionCart()
-    {
-        $model  = Carts::find()->where('create_by=:user_id AND rstat not in(0,3) AND status = 1',[
+
+    private function getCart($status=''){
+        $model  = Carts::find()->where('create_by=:user_id AND rstat not in(0,3)',[
             ':user_id' => CNUserFunc::getUserId()
         ])->all();
+        if($status != ''){
+            $model  = Carts::find()->where('create_by=:user_id AND rstat not in(0,3) AND status=:status',[
+                ':user_id' => CNUserFunc::getUserId(),
+                ':status' => $status
+            ])->all();
+        }
         $output = [];
         if($model){
             $storageUrl = isset(Yii::$app->params['storageUrl'])?Yii::$app->params['storageUrl']:'';
@@ -75,7 +83,12 @@ class ProductController extends Controller
                 ];
             }
         }
-//        VarDumper::dump($output);
+        return ['output'=>$output, 'sum'=>$sum];
+    }
+    public function actionCart()
+    {
+        $output = $this->getCart()['output'];
+        $sum = $this->getCart()['sum'];
         return $this->render('cart', [
             'output'=>$output,
             'sum'=>$sum
@@ -90,7 +103,7 @@ class ProductController extends Controller
         $qty = Yii::$app->request->post('qty');
         $cart_id = Yii::$app->request->post('cart_id');
 
-        $model = Carts::find()->where('create_by=:user_id AND pro_id=:pro_id AND rstat not in(0,3) AND status = 1',[
+        $model = Carts::find()->where('create_by=:user_id AND pro_id=:pro_id AND rstat not in(0,3)',[
             ':user_id' => CNUserFunc::getUserId(),
             ':pro_id' => $proId
         ])->one();
@@ -127,9 +140,55 @@ class ProductController extends Controller
         $number = Yii::$app->request->get('number');
         return number_format($number);
     }
-    public function actionCheckout(){
+
+    public function actionSetCheckout(){
         $ids = Yii::$app->request->post('ids');
-        VarDumper::dump($ids);
+        $ids = Json::decode($ids);
+
+        $clearCart = Carts::find()->where('create_by=:user_id',[
+            ":user_id" => CNUserFunc::getUserId()
+        ])->all();
+        foreach($clearCart as $k=>$v){
+            $v->status = 1;
+            $v->save();
+        }
+
+        $model = Carts::find()->where(['id'=>$ids])->all();
+        foreach($model as $k=>$v){
+            $v->status = 2;
+            $v->save();
+        }
+        return CNMessage::getSuccess("Success");
+    }
+    public function actionShipping(){
+        $shipping = Shippings::find()
+            ->where('create_by=:user_id AND `default`=1 AND rstat not in(0,3)',[
+            ':user_id' => CNUserFunc::getUserId()
+        ])->one();
+        return $this->renderAjax("shipping",[
+            'shipping'=>$shipping
+        ]);
+    }
+    public function actionShippingAll(){
+        $model = Shippings::find()
+            ->where('create_by=:user_id AND `default`=1 AND rstat not in(0,3)',[
+                ':user_id' => CNUserFunc::getUserId()
+            ])->one();
+
+        return $this->renderAjax("shipping-all",[
+            'model'=>$model
+        ]);
+    }
+    public function actionCheckout(){
+        $output = $this->getCart(2)['output'];
+        $sum = $this->getCart(2)['sum'];
+        //VarDumper::dump($output);
+        return $this->render('checkout', [
+            'output'=>$output,
+            'sum'=>$sum,
+
+        ]);
+
     }
 
 }
