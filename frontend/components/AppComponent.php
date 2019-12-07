@@ -8,7 +8,8 @@ use yii\web\UnauthorizedHttpException;
 
 class AppComponent extends Component {
     public function init() {
-        parent::init(); 
+        parent::init();
+        Yii::$app->language = 'th-TH';
 	    $storageUrl = isset( Yii::$app->params['storageUrl'])? Yii::$app->params['storageUrl']:'';
         $backendUrl = isset( Yii::$app->params['backendUrl'])? Yii::$app->params['backendUrl']:'';
         $frontendUrl = isset( Yii::$app->params['frontendUrl'])? Yii::$app->params['frontendUrl']:'';
