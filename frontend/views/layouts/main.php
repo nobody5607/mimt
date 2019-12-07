@@ -11,6 +11,7 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 \cpn\chanpan\assets\bootbox\BootBoxAsset::register($this);
 \cpn\chanpan\assets\notify\NotifyAsset::register($this);
+\cpn\chanpan\assets\SweetAlertAsset::register($this);
 $name = isset(Yii::$app->params['name_app'])?Yii::$app->params['name_app']:'';
 Yii::$app->name = $name;
 AppAsset::register($this);
