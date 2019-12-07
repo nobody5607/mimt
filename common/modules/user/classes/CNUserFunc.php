@@ -33,6 +33,9 @@ class CNUserFunc {
         $sitecode = isset(\Yii::$app->user->identity->profile->sitecode)?\Yii::$app->user->identity->profile->sitecode:'';
         return $sitecode;
     }
+    public static function getUserId(){
+        return isset(\Yii::$app->user->id)?\Yii::$app->user->id:'';
+    }
     public static function getUserById($type, $user_id){        
         return CNUserQuery::getUserById($type, $user_id);
     }

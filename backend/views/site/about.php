@@ -6,6 +6,7 @@
     <a href="#" class="btn btn-primary btnEdit" data-url="<?= yii\helpers\Url::to(['/site/edit?params=about']) ?>"><i class="fa fa-pencil"></i></a>
 <?php endif; ?>
 <div class="text-muted">
+    <label for=""><?= $this->render('_icon')?> เกี่ยวกับเรา</label>
     <?= isset(\Yii::$app->params['about']) ? \Yii::$app->params['about'] : '' ?> 
 </div>
     

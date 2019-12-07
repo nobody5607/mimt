@@ -72,7 +72,7 @@ return [
 
     'Delete successfully'=>'ลบข้อมูลสำเร็จ',
     'Can not delete the data.'=>'ลบข้อมูลไม่สำเร็จ',
-    ''=>'',
-    ''=>'',
+    'Are you sure you want to delete this item?'=>'คุณแน่ใจหรือว่าต้องการลบรายการนี้หรือไม่?',
+    'Assign'=>'มอบหมาย',
     
 ];

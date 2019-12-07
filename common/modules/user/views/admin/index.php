@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-title">
-                    <i class="fa fa-user"></i> <?= Html::encode($this->title); ?>
+                    <?= $this->render('_icon');?> <?= Html::encode($this->title); ?>
                 </div>
             </div>
         </div>
@@ -105,16 +105,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     ///admin/assignment/view?id=1
                     'buttons' => [
                         'assign' => function($url, $model) {
-                            return Html::a('<span class="fa fa-shield"></span> ' . Yii::t('chanpan', 'Assign'), yii\helpers\Url::to(['/admin/assignment/view', 'id' => $model->id]), [
-                                        'title' => Yii::t('user', 'Assign'),
+                            return Html::a('<span class="fa fa-shield"></span> ' . Yii::t('app', 'Assign'), yii\helpers\Url::to(['/admin/assignment/view', 'id' => $model->id]), [
+                                        'title' => Yii::t('app', 'Assign'),
                                         'class' => 'btn btn-success btn-sm',
                                         'data-action' => 'assign',
                                         'data-pjax' => 0
                             ]);
                         },
                         'update' => function($url, $model) {
-                            return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('chanpan', 'Edit'), yii\helpers\Url::to(['/user/admin/update-profile/', 'id' => $model->id]), [
-                                        'title' => Yii::t('user', 'Edit'),
+                            return Html::a('<span class="fa fa-pencil"></span> ' . Yii::t('app', 'Update'), yii\helpers\Url::to(['/user/admin/update-profile/', 'id' => $model->id]), [
+                                        'title' => Yii::t('user', 'Update'),
                                         'class' => 'btn btn-primary btn-sm',
                                         'data-action' => 'update',
                                         'data-pjax' => 0
@@ -122,10 +122,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'delete' => function ($url, $model) {
                             if ($model->id != \Yii::$app->user->getId()) {
-                                return Html::a('<span class="fa fa-trash"></span> ' . Yii::t('chanpan', 'Delete'), yii\helpers\Url::to(['/user/admin/delete/', 'id' => $model->id]), [
+                                return Html::a('<span class="fa fa-trash"></span> ' . Yii::t('app', 'Delete'), yii\helpers\Url::to(['/user/admin/delete/', 'id' => $model->id]), [
                                             'title' => Yii::t('chanpan', 'Delete'),
                                             'class' => 'btn btn-danger btn-sm',
-                                            'data-confirm' => Yii::t('user', 'Are you sure you want to delete this item?'),
+                                            'data-confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                                             'data-method' => 'post',
                                             'data-action' => 'delete',
                                             'data-pjax' => 0

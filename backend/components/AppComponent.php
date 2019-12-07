@@ -38,11 +38,11 @@ class AppComponent extends Component
                     'icon' => 'users', 'url' => ['/user/admin/index'],
                     'visible' => \Yii::$app->user->can('admin')
                 ],
-
+                ['label' => \Yii::t('app', 'ที่อยู่สำหรับจัดส่ง'), 'icon' => '', 'url' => ['/products/shippings/index']],
 
                 ['label' => \Yii::t('appmenu', 'About'), 'icon' => 'user', 'url' => ['/site/about']],
                 ['label' => \Yii::t('appmenu', 'Contact'), 'icon' => 'phone-square', 'url' => ['/site/contact']],
-                ['label' => \Yii::t('appmenu', 'Informations'), 'icon' => 'microphone', 'url' => ['/informations/index']],
+//                ['label' => \Yii::t('appmenu', 'Informations'), 'icon' => 'microphone', 'url' => ['/informations/index']],
 //                    ['label' => \Yii::t('appmenu','Clinical Data Management'), 'icon' => '', 'url' => ['/'], 'visible' => !Yii::$app->user->isGuest],
 
 
