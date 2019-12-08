@@ -51,9 +51,31 @@ $this->params['breadcrumbs'][] = $this->title;
 	    ],
 
             'name',
-            'date',
+            [
+                'attribute' => 'date',
+                'value' => function($model){
+                    if($model->date){
+                        return  \appxq\sdii\utils\SDdate::mysql2phpDateTime($model->date);
+                    }
+                }
+            ],
             'time',
-
+            [
+                'attribute' => 'create_by',
+                'value' => function($model){
+                    if($model->create_by){
+                        return \common\modules\user\classes\CNUserFunc::getFullNameByUserId($model->create_by);
+                    }
+                }
+            ],
+            [
+                'attribute' => 'create_date',
+                'value' => function($model){
+                    if($model->create_date){
+                        return  \appxq\sdii\utils\SDdate::mysql2phpDateTime($model->create_date);
+                    }
+                }
+            ],
             // 'create_by',
             // 'create_date',
             // 'update_by',
@@ -144,7 +166,7 @@ $('#booking-grid-pjax').on('click', 'tbody tr td a', function() {
 	    ).done(function(result) {
 		if(result.status == 'success') {
             swal({
-                title: result.status,
+                title: result.message,
                 text: result.message,
                 type: result.status,
                 timer: 2000
@@ -152,7 +174,7 @@ $('#booking-grid-pjax').on('click', 'tbody tr td a', function() {
 		    $.pjax.reload({container:'#booking-grid-pjax'});
 		} else {
             swal({
-                title: result.status,
+                title: result.message,
                 text: result.message,
                 type: result.status,
                 timer: 2000

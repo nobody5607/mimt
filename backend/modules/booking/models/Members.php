@@ -36,6 +36,7 @@ class Members extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['fname', 'lname'], 'required'],
             [['rstat', 'create_by', 'update_by'], 'integer'],
             [['create_date', 'update_date'], 'safe'],
             [['fname', 'lname', 'tel', 'address', 'email', 'booking_type'], 'string', 'max' => 255],

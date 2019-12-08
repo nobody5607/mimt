@@ -87,7 +87,7 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
         $('.btn-submit').attr('disabled',false);
         if(result.status == 'success') {
             swal({
-                title: result.status,
+                title: result.message,
                 text: result.message,
                 type: result.status,
                 timer: 2000
@@ -97,7 +97,7 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
 
         } else {
             swal({
-                title: result.status,
+                title: result.message,
                 text: result.message,
                 type: result.status,
                 timer: 2000

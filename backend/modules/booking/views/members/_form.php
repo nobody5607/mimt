@@ -31,7 +31,7 @@ use appxq\sdii\helpers\SDHtml;
 	<?= $form->field($model, 'tel')->textInput(['maxlength' => true]) ?>
 	<?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 	<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-	<?= $form->field($model, 'booking_type')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'booking_type')->dropDownList(\yii\helpers\ArrayHelper::map(\backend\modules\booking\models\Booking::find()->where('rstat not in(0,3)')->all(),'id','name'),['prompt'=>'--เลือกประเภทการอบรม--']); ?>
 
     </div>
     <div class="modal-footer">
@@ -66,7 +66,7 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
         $('.btn-submit').attr('disabled',false);
         if(result.status == 'success') {
             swal({
-                title: result.status,
+                title: result.message,
                 text: result.message,
                 type: result.status,
                 timer: 2000
@@ -76,7 +76,7 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function(e) {
 
         } else {
             swal({
-                title: result.status,
+                title: result.message,
                 text: result.message,
                 type: result.status,
                 timer: 2000
