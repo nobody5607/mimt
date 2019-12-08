@@ -51,11 +51,8 @@ return [
 
     ],
     'modules'=>[
-        'redactor' => [
-            'class' => 'yii\redactor\RedactorModule',
-            'uploadDir' => 'C:\xampp\htdocs\inpiredev\uploads',
-            'uploadUrl' => '@web/uploads',
-            'imageAllowExtensions'=>['jpg','png','gif']
+        'booking' => [
+            'class' => 'backend\modules\booking\Module',
         ],
         'products' => [
             'class' => 'backend\modules\products\Module',
