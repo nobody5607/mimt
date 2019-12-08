@@ -1,8 +1,7 @@
 <?php
 
-namespace backend\modules\booking\models;
+namespace frontend\models;
 
-use common\modules\user\classes\CNUserFunc;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -42,10 +41,7 @@ class MembersSearch extends Members
      */
     public function search($params)
     {
-        $query = Members::find()
-            ->where('create_by=:user_id rstat not in(0,3)',[
-                ":user_id" => CNUserFunc::getUserId()
-            ]);
+        $query = Members::find()->where('rstat not in(0,3)');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

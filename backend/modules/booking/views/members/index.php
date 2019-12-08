@@ -28,35 +28,65 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="box-body">    
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php  Pjax::begin(['id'=>'members-grid-pjax']);?>
-    <?= GridView::widget([
-	'id' => 'members-grid',
-/*	'panelBtn' => Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['members/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-members']). ' ' .
-		      Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['members/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-members', 'disabled'=>true]),*/
-	'dataProvider' => $dataProvider,
-	'filterModel' => $searchModel,
-        'columns' => [
-	    [
-		'class' => 'yii\grid\CheckboxColumn',
-		'checkboxOptions' => [
-		    'class' => 'selectionMemberIds'
-		],
-		'headerOptions' => ['style'=>'text-align: center;'],
-		'contentOptions' => ['style'=>'width:40px;text-align: center;'],
-	    ],
-	    [
-		'class' => 'yii\grid\SerialColumn',
-		'headerOptions' => ['style'=>'text-align: center;'],
-		'contentOptions' => ['style'=>'width:60px;text-align: center;'],
-	    ],
+    <div class="table-responsive">
+        <?php  Pjax::begin(['id'=>'members-grid-pjax']);?>
+        <?= \kartik\grid\GridView::widget([
+            'id' => 'members-grid',
+            /*	'panelBtn' => Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['members/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-members']). ' ' .
+                          Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['members/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-members', 'disabled'=>true]),*/
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                [
+                    'class' => 'yii\grid\CheckboxColumn',
+                    'checkboxOptions' => [
+                        'class' => 'selectionMemberIds'
+                    ],
+                    'headerOptions' => ['style'=>'text-align: center;'],
+                    'contentOptions' => ['style'=>'width:40px;text-align: center;'],
+                ],
+                [
+                    'class' => 'yii\grid\SerialColumn',
+                    'headerOptions' => ['style'=>'text-align: center;'],
+                    'contentOptions' => ['style'=>'width:60px;text-align: center;'],
+                ],
 
 
-            'fname',
-            'lname',
-            'tel',
-            'address',
-            'email:email',
-            'booking_type',
+                'fname',
+                'lname',
+                'tel',
+                'address',
+                'email:email',
+                [
+                    'attribute' => 'booking_type',
+                    'value'=>function($model){
+                        if($model->booking_type){
+                            $booking = \backend\modules\booking\models\Booking::findOne($model->booking_type);
+                            return isset($booking->name)?$booking->name:'';
+                        }
+                    },
+                    'filter' => \yii\helpers\ArrayHelper::map(\backend\modules\booking\models\Booking::find()
+                        ->where('rstat not in(0,3)')->all(),'id','name')
+                ],
+                [
+                    'label' => 'วันที่จัด',
+                    'value'=>function($model){
+                        if($model->booking_type){
+                            $booking = \backend\modules\booking\models\Booking::findOne($model->booking_type);
+                            return isset($booking->date)?$booking->date:'';
+                        }
+                    }
+                ],
+                [
+                    'label' => 'เวลา',
+                    'value'=>function($model){
+                        if($model->booking_type){
+                            $booking = \backend\modules\booking\models\Booking::findOne($model->booking_type);
+                            return isset($booking->time)?$booking->time:'';
+                        }
+                    }
+                ],
+
 //            [
 //                'attribute' => 'create_by',
 //                'value' => function($model){
@@ -74,44 +104,45 @@ $this->params['breadcrumbs'][] = $this->title;
 //                }
 //            ],
 
-            // 'rstat',
-            // 'create_by',
-            // 'create_date',
-            // 'update_by',
-            // 'update_date',
+                // 'rstat',
+                // 'create_by',
+                // 'create_date',
+                // 'update_by',
+                // 'update_date',
 
-	    [
-		'class' => 'appxq\sdii\widgets\ActionColumn',
-		'contentOptions' => ['style'=>'width:180px;text-align: center;'],
-		'template' => '{update} {delete}',
-                'buttons'=>[
-                    'update'=>function($url, $model){
-                        return Html::a('<span class="fa fa-pencil"></span> '.Yii::t('app', 'Update'),
-                                    yii\helpers\Url::to(['members/update?id='.$model->id]), [
+                [
+                    'class' => 'appxq\sdii\widgets\ActionColumn',
+                    'contentOptions' => ['style'=>'width:180px;text-align: center;'],
+                    'template' => '{update} {delete}',
+                    'buttons'=>[
+                        'update'=>function($url, $model){
+                            return Html::a('<span class="fa fa-pencil"></span> '.Yii::t('app', 'Update'),
+                                yii\helpers\Url::to(['members/update?id='.$model->id]), [
                                     'title' => Yii::t('app', 'Update'),
                                     'class' => 'btn btn-primary btn-xs',
                                     'data-action'=>'update',
                                     'data-pjax'=>0
-                        ]);
-                    },
-                    'delete' => function ($url, $model) {                         
-                        return Html::a('<span class="fa fa-trash"></span> '.Yii::t('app', 'Delete'), 
+                                ]);
+                        },
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="fa fa-trash"></span> '.Yii::t('app', 'Delete'),
                                 yii\helpers\Url::to(['members/delete?id='.$model->id]), [
-                                'title' => Yii::t('app', 'Delete'),
-                                'class' => 'btn btn-danger btn-xs',
-                                'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
-                                'data-method' => 'post',
-                                'data-action' => 'delete',
-                                'data-pjax'=>0
-                        ]);
-                            
-                        
-                    },
-                ]
-	    ],
-        ],
-    ]); ?>
-    <?php  Pjax::end();?>
+                                    'title' => Yii::t('app', 'Delete'),
+                                    'class' => 'btn btn-danger btn-xs',
+                                    'data-confirm' => Yii::t('chanpan', 'Are you sure you want to delete this item?'),
+                                    'data-method' => 'post',
+                                    'data-action' => 'delete',
+                                    'data-pjax'=>0
+                                ]);
+
+
+                        },
+                    ]
+                ],
+            ],
+        ]); ?>
+        <?php  Pjax::end();?>
+    </div>
 
 </div>
 </div>

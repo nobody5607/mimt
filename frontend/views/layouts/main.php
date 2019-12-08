@@ -49,6 +49,7 @@ AppAsset::register($this);
         //['label' => 'Home', 'url' => ['/site/index']],
 //        ['label' => 'Category', 'url' => ['/products/stock-category']],
         ['label' => 'รายการสินค้า', 'url' => ['/product/index']],
+        ['label' => 'จองอบรม', 'url' => ['/members/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/registration/register']];
