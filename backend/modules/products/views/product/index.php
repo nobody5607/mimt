@@ -135,7 +135,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
 // JS script
 $('#modal-addbtn-products').on('click', function() {
-    modalProduct($(this).attr('data-url'));
+    location.href = $(this).attr('data-url');
+    // modalProduct($(this).attr('data-url'));
 });
 
 $('#modal-delbtn-products').on('click', function() {
@@ -156,7 +157,7 @@ $('.selectionCoreOptionIds').on('click',function() {
 
 $('#products-grid-pjax').on('dblclick', 'tbody tr', function() {
     var id = $(this).attr('data-key');
-    modalProduct('<?= Url::to(['product/update', 'id'=>''])?>'+id);
+    location.href = '<?= Url::to(['product/update', 'id'=>''])?>'+id;
 });	
 
 $('#products-grid-pjax').on('click', 'tbody tr td a', function() {
@@ -164,7 +165,8 @@ $('#products-grid-pjax').on('click', 'tbody tr td a', function() {
     var action = $(this).attr('data-action');
 
     if(action === 'update' || action === 'view') {
-	modalProduct(url);
+	// modalProduct(url);
+        location.href = url;
     } else if(action === 'delete') {
 	yii.confirm('<?= Yii::t('chanpan', 'Are you sure you want to delete this item?')?>', function() {
 	    $.post(

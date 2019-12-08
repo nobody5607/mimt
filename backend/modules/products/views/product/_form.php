@@ -19,7 +19,8 @@ use appxq\sdii\helpers\SDHtml;
 
     <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="itemModalLabel"><?= $this->render('_icon');?> จัดการสินค้า</h4>
+        <h4 class="modal-title" id="itemModalLabel">
+            <a href="<?= \yii\helpers\Url::to(['/products/product/index'])?>"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a> <?= $title; ?></h4>
     </div>
     <div class="modal-body">
         <?php
@@ -38,11 +39,15 @@ use appxq\sdii\helpers\SDHtml;
             ->dropDownList(\yii\helpers\ArrayHelper::map(\backend\modules\products\models\Categorys::find()->where('rstat not in(0,3)')->all(),'id','name'),['prompt'=>'--เลือกหมวดหมู่สินค้า--'])?>
 
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+
         <?= $form->field($model, 'detail')->widget(\cpn\chanpan\widgets\CNFroalaEditorWidget::className(), [
             'options' => ['rows' => 6],
             'toolbar_size' => 'sm',
 
         ]) ?>
+
+
         <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'order')->textInput(['type'=>'number']) ?>
     </div>
@@ -90,8 +95,9 @@ $('form#<?= $model->formName()?>').on('beforeSubmit', function (e) {
                     type: result.status,
                     timer: 1000
                 });
-                $(document).find('#modal-products').modal('hide');
-                $.pjax.reload({container:'#products-grid-pjax'});
+                setTimeout(function () {
+                    window.history.back();
+                },1000);
 
             } else {
                 swal({

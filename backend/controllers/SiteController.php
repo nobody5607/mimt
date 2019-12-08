@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use appxq\sdii\utils\VarDumper;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -61,7 +62,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-         return $this->render('index');
+
+
+          return $this->render('index');
  
     }
     public function actionAbout()

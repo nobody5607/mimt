@@ -43,7 +43,9 @@
         "2amigos/yii2-gallery-widget" : "*",
         "meysampg/yii2-formbuilder": "*",
         "sansusan/yii2-jqwidgets-asset": "dev-master",
-        "loveorigami/yii2-slimscroll-widget": "*"
+        "loveorigami/yii2-slimscroll-widget": "*",
+        "froala/yii2-froala-editor": "^3.0",
+        "yiidoc/yii2-redactor": "*"
         
     },
     "require-dev": {

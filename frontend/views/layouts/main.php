@@ -46,7 +46,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        //['label' => 'Home', 'url' => ['/site/index']],
 //        ['label' => 'Category', 'url' => ['/products/stock-category']],
         ['label' => 'รายการสินค้า', 'url' => ['/product/index']],
     ];

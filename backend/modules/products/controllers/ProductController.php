@@ -98,7 +98,7 @@ class ProductController extends Controller
     public function actionCreate()
     {
 
-        if (Yii::$app->getRequest()->isAjax) {
+
             $model = new Products();
             if ($model->load(Yii::$app->request->post())) {
                 $model->id = SDUtility::getMillisecTime();
@@ -117,13 +117,11 @@ class ProductController extends Controller
                 }
             } else {
                 $model->order = $this->getMaxOrder();
-                return $this->renderAjax('create', [
+                return $this->render('create', [
                     'model' => $model,
                 ]);
             }
-        } else {
-            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-        }
+
     }
 
     /**
@@ -134,7 +132,7 @@ class ProductController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->getRequest()->isAjax) {
+
             $model = $this->findModel($id);
             Yii::$app->session['image'] = $model->image;
             if ($model->load(Yii::$app->request->post())) {
@@ -153,13 +151,11 @@ class ProductController extends Controller
                     return \cpn\chanpan\classes\CNMessage::getError('Can not update the data.');
                 }
             } else {
-                return $this->renderAjax('update', [
+                return $this->render('update', [
                     'model' => $model,
                 ]);
             }
-        } else {
-            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
-        }
+
     }
 
     /**
