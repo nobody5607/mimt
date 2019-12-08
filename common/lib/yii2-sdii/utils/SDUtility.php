@@ -119,7 +119,9 @@ class SDUtility {
         }
         return $arry;
     }
-
+    public static function getStoragePath() {
+        return isset(\Yii::$app->params['storageUrl'])?\Yii::$app->params['storageUrl']:'';
+    }
     public static function getMillisecTime() {
         list($t1, $t2) = explode(' ', microtime());
         $mst = str_replace('.', '', $t2 . $t1);
