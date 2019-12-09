@@ -41,6 +41,7 @@ class ProductController extends Controller
     public function actionDetail()
     {
         $id = Yii::$app->request->get('id');
+        \Yii::$app->session['productUrl'] = "/product/detail?id={$id}";
         $product = Products::find()->where('id=:id AND rstat not in(0,3)', [
             ':id' => $id
         ])->one();

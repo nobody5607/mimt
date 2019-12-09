@@ -1,12 +1,13 @@
 <?php
 namespace common\modules\user\controllers;
+use Yii;
 use dektrium\user\controllers\SecurityController as BaseSecurityController;
 use common\modules\user\models\LoginForm; 
 class SecurityController extends BaseSecurityController{
     //put your code here
     public function actionLogin()
     {
-       
+
        // $this->layout='@backend/themes/adminlte/views/layouts/main';
         if (!\Yii::$app->user->isGuest) {
             $this->goHome();
@@ -22,6 +23,9 @@ class SecurityController extends BaseSecurityController{
 
         if ($model->load(\Yii::$app->getRequest()->post()) && $model->login()) {
             $this->trigger(self::EVENT_AFTER_LOGIN, $event);
+            if(isset(Yii::$app->session['productUrl'])){
+                return $this->redirect([Yii::$app->session['productUrl']]);
+            }
             return $this->goBack();
         }
 
