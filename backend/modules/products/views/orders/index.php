@@ -58,8 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return '<label class="label label-warning">ยังไม่ชำระเงิน</label>';
                             } else if ($model->status == '2') {
                                 return '<label class="label label-success">ชำระเงินแล้ว</label>';
+                            }else if ($model->status == '3') {
+                                return '<label class="label label-danger">ยกเลิกคำสั่งซื้อ</label>';
                             }
-                        }
+                        },
+                        'filter' => ['1' => 'ยังไม่ชำระเงิน', '2' => 'ชำระเงินแล้ว','3'=>'ยกเลิกคำสั่งซื้อ']
                     ],
                     [
                         'attribute' => 'total',
