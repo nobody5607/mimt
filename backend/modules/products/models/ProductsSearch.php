@@ -57,7 +57,7 @@ class ProductsSearch extends Products
         }else{
             $data = $query->orderBy(['order'=>SORT_ASC]);
         }
-        if(isset($params['term'])){
+        if(isset($params['term']) && $params['term'] != ''){
             $data = $query->where('name like :name OR detail like :detail AND rstat not in(0,3)',[
                 ':name'=>"%{$params['term']}%",
                 ':detail'=>"%{$params['term']}%"
