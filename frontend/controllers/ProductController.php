@@ -185,22 +185,46 @@ class ProductController extends Controller
             'shipping' => $shipping
         ]);
     }
+    public function actionShippingDelete(){
+        $id = Yii::$app->request->post('id');
+        $model = Shippings::findOne($id);
+
+        $model->rstat = 3;
+        if ($model->save()) {
+            return \cpn\chanpan\classes\CNMessage::getSuccess('Success');
+        } else {
+            return \cpn\chanpan\classes\CNMessage::getError('Can not delete the data.', $model->errors);
+        }
+    }
     public function actionShippingCreate(){
         if (Yii::$app->getRequest()->isAjax) {
-            $model = new Shippings();
 
+            $id = Yii::$app->request->get('id');
+            $model = Shippings::findOne($id);
+            if(!$model){
+                $model = new Shippings();
+            }
             if (Yii::$app->request->post()) {
                 $address = Yii::$app->request->post('address');
+                $id = Yii::$app->request->post('id');
+                $model = Shippings::findOne($id);
+                if(!$model){
+                    $model = new Shippings();
+                }
+
                 $model->user_id = CNUserFunc::getUserId();
                 $model->rstat = 1;
                 $model->create_date = date('Y-m-d H:i:s');
                 $model->create_by = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
                 $model->address = $address;
+
                 if ($model->save()) {
-                    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
+                    return \cpn\chanpan\classes\CNMessage::getSuccess('Success');
                 } else {
                     return \cpn\chanpan\classes\CNMessage::getError('Can not create the data.', $model->errors);
                 }
+
+
             } else {
                 return $this->renderAjax('shipping-create', [
                     'model' => $model,
@@ -208,6 +232,24 @@ class ProductController extends Controller
             }
         } else {
             throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
+    }
+    public function actionShippingSetDefault(){
+        $id = Yii::$app->request->post('id');
+        $shippings = Shippings::find()
+            ->where('create_by=:user_id AND `default`=1 AND rstat not in(0,3)', [
+                ':user_id' => CNUserFunc::getUserId()
+            ])->all();
+        foreach($shippings as $k=>$v){
+            $v->default = 2;
+            $v->save();
+        }
+        $shippings = Shippings::findOne($id);
+        $shippings->default = 1;
+        if ($shippings->save()) {
+            return CNMessage::getSuccess("Success");
+        } else {
+            return CNMessage::getError("error", $shippings->errors);
         }
     }
     public function actionShippingAll()
