@@ -34,6 +34,7 @@ class Payments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['image','price','date'], 'required'],
             [['rstat', 'create_by', 'update_by'], 'integer'],
             [['price'], 'number'],
             [['note'], 'string'],
