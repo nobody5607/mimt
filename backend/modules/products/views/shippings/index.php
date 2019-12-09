@@ -203,22 +203,22 @@ function selectionShippingGrid(url) {
 	    data: $('.selectionShippingIds:checked[name=\"selection[]\"]').serialize(),
 	    dataType: 'JSON',
 	    success: function(result, textStatus) {
-		if(result.status == 'success') {
-            swal({
-                title: result.status,
-                text: result.message,
-                type: result.status,
-                timer: 2000
-            });
-		    $.pjax.reload({container:'#shippings-grid-pjax'});
-		} else {
-            swal({
-                title: result.status,
-                text: result.message,
-                type: result.status,
-                timer: 2000
-            });
-		}
+            if (result.status == 'success') {
+                swal({
+                    title: result.status,
+                    text: result.message,
+                    type: result.status,
+                    timer: 2000
+                });
+                $.pjax.reload({container: '#shippings-grid-pjax'});
+            } else {
+                swal({
+                    title: result.status,
+                    text: result.message,
+                    type: result.status,
+                    timer: 2000
+                });
+            }
 	    }
 	});
     });

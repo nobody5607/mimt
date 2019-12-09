@@ -24,6 +24,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\NotFoundHttpException;
 
 class ProductController extends Controller
 {
@@ -184,13 +185,58 @@ class ProductController extends Controller
             'shipping' => $shipping
         ]);
     }
+    public function actionShippingCreate(){
+        if (Yii::$app->getRequest()->isAjax) {
+            $model = new Shippings();
 
+            if (Yii::$app->request->post()) {
+                $address = Yii::$app->request->post('address');
+                $model->user_id = CNUserFunc::getUserId();
+                $model->rstat = 1;
+                $model->create_date = date('Y-m-d H:i:s');
+                $model->create_by = isset(\Yii::$app->user->id) ? \Yii::$app->user->id : '';
+                $model->address = $address;
+                if ($model->save()) {
+                    return \cpn\chanpan\classes\CNMessage::getSuccess('Create successfully');
+                } else {
+                    return \cpn\chanpan\classes\CNMessage::getError('Can not create the data.', $model->errors);
+                }
+            } else {
+                return $this->renderAjax('shipping-create', [
+                    'model' => $model,
+                ]);
+            }
+        } else {
+            throw new NotFoundHttpException('Invalid request. Please do not repeat this request again.');
+        }
+    }
     public function actionShippingAll()
     {
         $model = Shippings::find()
             ->where('create_by=:user_id AND `default`=1 AND rstat not in(0,3)', [
                 ':user_id' => CNUserFunc::getUserId()
             ])->one();
+
+        if($model->load(Yii::$app->request->post())){
+            $shippings = Shippings::find()
+                ->where('create_by=:user_id AND `default`=1 AND rstat not in(0,3)', [
+                    ':user_id' => CNUserFunc::getUserId()
+                ])->all();
+            foreach($shippings as $k=>$v){
+                $v->default = 2;
+                $v->save();
+            }
+
+            $post = Yii::$app->request->post('Shippings');
+            $shipping = Shippings::findOne($post['default']);
+            $shipping->default = 1;
+            if ($shipping->save()) {
+                return CNMessage::getSuccess("Success");
+            } else {
+                return CNMessage::getError("error", $model->errors);
+            }
+
+        }
 
         return $this->renderAjax("shipping-all", [
             'model' => $model
