@@ -245,7 +245,7 @@ class ProductController extends Controller
             $v->save();
         }
         $shippings = Shippings::findOne($id);
-        $shippings->default = 1;
+        //$shippings->default = 1;
         if ($shippings->save()) {
             return CNMessage::getSuccess("Success");
         } else {
