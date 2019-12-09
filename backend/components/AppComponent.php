@@ -34,6 +34,7 @@ class AppComponent extends Component
 
                 ['label' => \Yii::t('app', 'รายการสินค้า'), 'icon' => '', 'url' => ['/products/product/index']],
                 ['label' => \Yii::t('app', 'หมวดหมู่'), 'icon' => '', 'url' => ['/products/categorys/index']],
+                ['label' => \Yii::t('app', 'จัดการธนาคาร'), 'icon' => '', 'url' => ['/products/banks/index']],
 
                 ['label' => \Yii::t('app', 'จัดการลูกค้า'), 'icon' => '', 'url' => ['/booking/members/index']],
                 ['label' => \Yii::t('app', 'จัดการอบรม'), 'icon' => '', 'url' => ['/booking/booking/index']],
