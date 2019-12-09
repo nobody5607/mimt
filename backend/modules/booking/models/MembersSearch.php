@@ -43,7 +43,7 @@ class MembersSearch extends Members
     public function search($params)
     {
         $query = Members::find()
-            ->where('create_by=:user_id rstat not in(0,3)',[
+            ->where('create_by=:user_id AND rstat not in(0,3)',[
                 ":user_id" => CNUserFunc::getUserId()
             ]);
 
