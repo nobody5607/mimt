@@ -245,7 +245,7 @@ class ProductController extends Controller
             $v->save();
         }
         $shippings = Shippings::findOne($id);
-        //$shippings->default = 1;
+        $shippings->default = 1;
         if ($shippings->save()) {
             return CNMessage::getSuccess("Success");
         } else {
@@ -258,7 +258,9 @@ class ProductController extends Controller
             ->where('create_by=:user_id AND `default`=1 AND rstat not in(0,3)', [
                 ':user_id' => CNUserFunc::getUserId()
             ])->one();
-
+        if(!$model){
+            $model = new Shippings();
+        }
         if($model->load(Yii::$app->request->post())){
             $shippings = Shippings::find()
                 ->where('create_by=:user_id AND `default`=1 AND rstat not in(0,3)', [
