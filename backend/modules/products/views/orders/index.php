@@ -59,6 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             } else if ($model->status == '2') {
                                 return '<label class="label label-success">ชำระเงินแล้ว</label>';
                             }else if ($model->status == '3') {
+                                return '<label class="label label-success">ขายสินค้าแล้ว</label>';
+                            }else{
                                 return '<label class="label label-danger">ยกเลิกคำสั่งซื้อ</label>';
                             }
                         },
