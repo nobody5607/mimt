@@ -27,7 +27,7 @@ use appxq\sdii\helpers\SDHtml;
             <?= $form->field($model, 'order_id')->textInput(['maxlength' => true, 'readonly' => true]) ?>
             <?= $form->field($model, 'total')->textInput(['maxlength' => true, 'readonly' => true]) ?>
             <?= $form->field($model, 'status')->inline()
-                ->radioList(['1' => 'ยังไม่ชำระเงิน', '2' => 'ชำระเงินแล้ว','3'=>'ยกเลิกคำสั่งซื้อ']) ?>
+                ->radioList(['1' => 'รอการชำระเงิน', '2' => 'ชำระเงินแล้ว','3'=>'ขายสินค้าแล้ว','4'=>'ยกเลิกคำสั่งซื้อ']) ?>
 
             <hr>
             <h3>หลักฐานการชำระเงิน</h3>
