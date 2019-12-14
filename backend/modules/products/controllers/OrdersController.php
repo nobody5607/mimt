@@ -3,7 +3,9 @@
 namespace backend\modules\products\controllers;
 
 use appxq\sdii\utils\SDUtility;
+use backend\modules\products\models\OrderDetails;
 use backend\modules\products\models\Payments;
+use backend\modules\products\models\Products;
 use Yii;
 use backend\modules\products\models\Orders;
 use backend\modules\products\models\OrdersSearch;
@@ -64,7 +66,24 @@ class OrdersController extends Controller
             ]);
         }
     }
+    public function actionProduct()
+    {
+        $order_id = \Yii::$app->request->get('order_id');
+        $order = Orders::findOne($order_id);
+        $detail = OrderDetails::find()
+            ->where('order_id=:order_id',[
+                ':order_id' => $order_id
+            ])
+            ->all();
+        if($detail){
+            return $this->renderAjax('product',[
+                'detail'=>$detail,
+                'order'=>$order
+            ]);
+        }
+        return "<h3 class='alert alert-warning'>ไม่พบสินค้า</h3>";
 
+    }
     public function actionPayment()
     {
         $order_id = \Yii::$app->request->get('order_id');

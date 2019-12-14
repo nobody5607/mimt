@@ -24,11 +24,15 @@ use appxq\sdii\helpers\SDHtml;
         </div>
 
         <div class="modal-body">
-            <?= $form->field($model, 'order_id')->textInput(['maxlength' => true, 'readonly' => true]) ?>
-            <?= $form->field($model, 'total')->textInput(['maxlength' => true, 'readonly' => true]) ?>
+            <div class="row">
+                <div class="col-md-8"><?= $form->field($model, 'order_id')->textInput(['maxlength' => true, 'readonly' => true]) ?></div>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'total')->textInput(['maxlength' => true, 'readonly' => true]) ?>
+                </div>
+            </div>
             <?= $form->field($model, 'status')->inline()
                 ->radioList(['1' => 'รอการชำระเงิน', '2' => 'ชำระเงินแล้ว','3'=>'ขายสินค้าแล้ว','4'=>'ยกเลิกคำสั่งซื้อ']) ?>
-
+            <div id="preview-product"></div>
             <hr>
             <h3>หลักฐานการชำระเงิน</h3>
             <div id="preview-payment"></div>
@@ -51,6 +55,12 @@ use appxq\sdii\helpers\SDHtml;
     'position' => \yii\web\View::POS_READY
 ]); ?>
     <script>
+        function initPreviewProduct(){
+            let url = '<?= \yii\helpers\Url::to(['/products/orders/product?order_id='.$model->order_id])?>';
+            $.get(url, function (result) {
+                $("#preview-product").html(result);
+            });
+        }
         function initPayment(){
             $("#preview-payment").html("<h3 class='text-center'>กำลังโหลดข้อมูล...</h3>");
             let order_id = '<?= $model->order_id; ?>';
@@ -61,6 +71,7 @@ use appxq\sdii\helpers\SDHtml;
             return false;
         }
         initPayment();
+        initPreviewProduct();
         // JS script
         $('form#<?= $model->formName()?>').on('beforeSubmit', function (e) {
             $('.btn-submit').prepend('<span class="icon-spin"><i class="fa fa-spinner fa-spin"></i></span> ');
