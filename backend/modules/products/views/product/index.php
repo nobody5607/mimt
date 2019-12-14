@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
          <?= $this->render('_icon');?> <?=  Html::encode($this->title) ?>
          <div class="pull-right">
              <?= Html::button(SDHtml::getBtnAdd()." เพิ่มรายการสินค้า", ['data-url'=>Url::to(['product/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-products']). ' ' .
-		      Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['product/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-products', 'disabled'=>false])
+		      Html::button(SDHtml::getBtnDelete()." ลบรายการสินค้า", ['data-url'=>Url::to(['product/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-products', 'disabled'=>false])
              ?>
          </div>
     </div>
