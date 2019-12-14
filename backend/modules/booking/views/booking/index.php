@@ -54,8 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'date',
                 'value' => function($model){
+                    
                     if($model->date){
-                        return  \appxq\sdii\utils\SDdate::mysql2phpDateTime($model->date);
+                        return  \appxq\sdii\utils\SDdate::mysql2phpDate($model->date);
                     }
                 }
             ],
