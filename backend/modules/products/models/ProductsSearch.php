@@ -21,7 +21,7 @@ class ProductsSearch extends Products
         return [
             [['id', 'name', 'detail', 'price', 'create_date', 'update_date', 'image'], 'safe'],
             [['rstat', 'create_by', 'update_by', 'order'], 'integer'],
-        ];
+        ]; 
     }
 
     /**
@@ -44,6 +44,8 @@ class ProductsSearch extends Products
     {
         $data = null;
         $query = Products::find()->where('rstat not in(0,3)');
+
+         
         if(isset($params['last-sort'])){
             $data = $query->orderBy(['id'=>SORT_DESC]);
         }else{
@@ -67,7 +69,7 @@ class ProductsSearch extends Products
         $dataProvider = new ActiveDataProvider([
             'query' => $data,
             'pagination' => [
-                'pageSize' => 100,
+                'pageSize' => 20,
             ],
         ]);
 

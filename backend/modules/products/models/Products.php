@@ -52,7 +52,7 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'ชื่อสินค้า'),
+            'name' => 'ชื่อสินค้า',
             'detail' => Yii::t('app', 'รายละเอียดสินค้า'),
             'price' => Yii::t('app', 'ราคา'),
             'rstat' => Yii::t('app', 'สถานะ'),

@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box-header">
          <?= $this->render('_icon');?> <?=  Html::encode($this->title) ?>
          <div class="pull-right">
-             <?= Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['product/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-products']). ' ' .
+             <?= Html::button(SDHtml::getBtnAdd()." เพิ่มรายการสินค้า", ['data-url'=>Url::to(['product/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-products']). ' ' .
 		      Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['product/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-products', 'disabled'=>false])
              ?>
          </div>
@@ -30,25 +30,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php  Pjax::begin(['id'=>'products-grid-pjax']);?>
     <?= GridView::widget([
-	'id' => 'products-grid',
-/*	'panelBtn' => Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['products/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-products']). ' ' .
-		      Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['products/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-products', 'disabled'=>true]),*/
-	'dataProvider' => $dataProvider,
+    'id' => 'products-grid',
+    'dataProvider' => $dataProvider,
 	'filterModel' => $searchModel,
         'columns' => [
-	    [
-		'class' => 'yii\grid\CheckboxColumn',
-		'checkboxOptions' => [
-		    'class' => 'selectionProductIds'
-		],
-		'headerOptions' => ['style'=>'text-align: center;'],
-		'contentOptions' => ['style'=>'width:40px;text-align: center;'],
-	    ],
-	    [
-		'class' => 'yii\grid\SerialColumn',
-		'headerOptions' => ['style'=>'text-align: center;'],
-		'contentOptions' => ['style'=>'width:60px;text-align: center;'],
-	    ],
+            [
+            'class' => 'yii\grid\CheckboxColumn',
+            'checkboxOptions' => [
+                'class' => 'selectionProductIds'
+            ],
+                'headerOptions' => ['style'=>'text-align: center;'],
+                'contentOptions' => ['style'=>'width:40px;text-align: center;'],
+	        ],
+            [
+                'header'=>'ลำดับ',
+                'class' => 'yii\grid\SerialColumn',
+                'headerOptions' => ['style'=>'text-align: center;'],
+                'contentOptions' => ['style'=>'width:60px;text-align: center;'],
+            ],
             [
                 'label' => 'image',
                 'format' => 'raw',
@@ -67,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'price',
                 'value' => function($model){
                     if($model->price){
-                        return number_format($model->price, 2);
+                        return number_format($model->price);
                     }
                 }
             ],
