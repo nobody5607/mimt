@@ -22,7 +22,9 @@ use appxq\sdii\helpers\SDHtml;
     </div>
 
     <div class="modal-body">
-	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+	    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'user_name')->textInput(['maxlength' => true]) ?>
 
     <div class="row">
         <div class="col-md-6">
@@ -38,22 +40,37 @@ use appxq\sdii\helpers\SDHtml;
                 ]);
             ?>
         </div>
-        <div class="col-md-6">
-            <?php
 
+    </div>
+        <div class="row">
+            <div class="col-md-6">
+                <?php
                 echo $form->field($model, 'time')
                     ->widget(\kartik\time\TimePicker::classname(), [
-                            'size' => 'sm',
-                            'pluginOptions' => [
-                                'showSeconds' => true,
-                                'showMeridian' => false,
-                                'minuteStep' => 1,
-                                'secondStep' => 5,
-                            ]
+                        'size' => 'sm',
+                        'pluginOptions' => [
+                            'showSeconds' => true,
+                            'showMeridian' => false,
+                            'minuteStep' => 1,
+                            'secondStep' => 5,
+                        ]
                     ]);
-            ?>
+                ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'end_date')
+                    ->widget(\kartik\time\TimePicker::classname(), [
+                        'size' => 'sm',
+                        'pluginOptions' => [
+                            'showSeconds' => true,
+                            'showMeridian' => false,
+                            'minuteStep' => 1,
+                            'secondStep' => 5,
+                        ]
+                    ]);
+                ?>
+            </div>
         </div>
-    </div>
     </div>
     <div class="modal-footer">
         <div class="row">

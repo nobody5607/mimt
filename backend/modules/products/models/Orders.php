@@ -33,7 +33,7 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
             [['order_id'], 'required'],
-            [['status', 'rstat', 'create_by', 'update_by'], 'integer'],
+            [['status', 'rstat', 'create_by', 'update_by','del_status'], 'integer'],
             [['total'], 'number'],
             [['create_date', 'update_date'], 'safe'],
             [['order_id'], 'string', 'max' => 100],
@@ -55,6 +55,7 @@ class Orders extends \yii\db\ActiveRecord
             'create_date' => Yii::t('app', 'สร้างเมื่อ'),
             'update_by' => Yii::t('app', 'แก้ไขโดย'),
             'update_date' => Yii::t('app', 'แก้ไขเมื่อ'),
+            'del_status'=>'สถานะการจัดส่ง'
         ];
     }
 }

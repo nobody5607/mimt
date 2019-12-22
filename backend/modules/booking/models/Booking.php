@@ -34,7 +34,14 @@ class Booking extends \yii\db\ActiveRecord
     {
         return [
             [['date', 'time', 'name'], 'required'],
-            [['date', 'time', 'create_date', 'update_date'], 'safe'],
+            [[
+                'date', 'time',
+                'create_date',
+                'update_date',
+                'location',
+                'end_date',
+                'user_name'
+            ], 'safe'],
             [['rstat', 'create_by', 'update_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
@@ -49,12 +56,15 @@ class Booking extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'ชื่ออบรม'),
             'date' => Yii::t('app', 'วันที่'),
-            'time' => Yii::t('app', 'เวลา'),
+            'time' => Yii::t('app', 'เวลาเริ่ม'),
+            'end_date'=>'เวลาสิ้นสุด',
+            'location'=>'สถานที่',
             'rstat' => Yii::t('app', 'สถานะ'),
             'create_by' => Yii::t('app', 'สร้างโดย'),
             'create_date' => Yii::t('app', 'สร้างเมื่อ'),
             'update_by' => Yii::t('app', 'แก้ไขโดย'),
             'update_date' => Yii::t('app', 'แก้ไขเมื่อ'),
+            'user_name'=>'ผู้จัด'
         ];
     }
 }

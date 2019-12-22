@@ -50,7 +50,16 @@ use appxq\sdii\helpers\SDHtml;
 ]); ?>
 <script>
 // JS script
-
+function initMemberType(){
+    $("#members-booking_type-proview").html("");
+    let url ='<?= \yii\helpers\Url::to(['/members/get-booking'])?>';
+    let id = "<?= $model->booking_type; ?>";
+    $.get(url,{id:id}, function (result) {
+        $("#members-booking_type-proview").html(result);
+    })
+    return false;
+}
+initMemberType();
 $("#members-booking_type").on('change', function(){
     $("#members-booking_type-proview").html("");
     let url ='<?= \yii\helpers\Url::to(['/members/get-booking'])?>';

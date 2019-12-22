@@ -67,6 +67,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filter' => ['1' => 'รอการชำระเงิน', '2' => 'ชำระเงินแล้ว','3'=>'ขายสินค้าแล้ว','4'=>'ยกเลิกคำสั่งซื้อ']
                     ],
                     [
+                        'format' => 'raw',
+                        'attribute' => 'del_status',
+                        'value' => function ($model) {
+                            if (!isset($model->del_status) || $model->del_status == '1') {
+                                return '<label class="label label-warning">รอจัดส่ง</label>';
+                            } else if ($model->del_status == '2') {
+                                return '<label class="label label-success">จัดส่งแล้ว</label>';
+                            }
+                        },
+                        'filter' => ['1' => 'รอการชำระเงิน', '2' => 'ชำระเงินแล้ว','3'=>'ขายสินค้าแล้ว','4'=>'ยกเลิกคำสั่งซื้อ']
+                    ],
+                    [
                         'attribute' => 'total',
                         'value' => function ($model) {
                             if (isset($model->total)) {

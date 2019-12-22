@@ -75,11 +75,29 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'label' => 'เวลา',
+                'label' => 'เวลาเริ่มต้น',
                 'value'=>function($model){
                     if($model->booking_type){
                         $booking = \backend\modules\booking\models\Booking::findOne($model->booking_type);
                         return isset($booking->time)?$booking->time:'';
+                    }
+                }
+            ],
+            [
+                'label' => 'เวลาสิ้นสุด',
+                'value'=>function($model){
+                    if($model->booking_type){
+                        $booking = \backend\modules\booking\models\Booking::findOne($model->booking_type);
+                        return isset($booking->end_date)?$booking->end_date:'';
+                    }
+                }
+            ],
+            [
+                'label' => 'ชื่อผู้จัด',
+                'value'=>function($model){
+                    if($model->booking_type){
+                        $booking = \backend\modules\booking\models\Booking::findOne($model->booking_type);
+                        return isset($booking->user_name)?$booking->user_name:'';
                     }
                 }
             ],

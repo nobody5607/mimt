@@ -60,22 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'time',
-            [
-                'attribute' => 'create_by',
-                'value' => function($model){
-                    if($model->create_by){
-                        return \common\modules\user\classes\CNUserFunc::getFullNameByUserId($model->create_by);
-                    }
-                }
-            ],
-            [
-                'attribute' => 'create_date',
-                'value' => function($model){
-                    if($model->create_date){
-                        return  \appxq\sdii\utils\SDdate::mysql2phpDateTime($model->create_date);
-                    }
-                }
-            ],
+            'end_date',
+            'user_name',
             // 'create_by',
             // 'create_date',
             // 'update_by',

@@ -30,12 +30,60 @@ use appxq\sdii\helpers\SDHtml;
                     <?= $form->field($model, 'total')->textInput(['maxlength' => true, 'readonly' => true]) ?>
                 </div>
             </div>
-            <?= $form->field($model, 'status')->inline()
-                ->radioList(['1' => 'รอการชำระเงิน', '2' => 'ชำระเงินแล้ว','3'=>'ขายสินค้าแล้ว','4'=>'ยกเลิกคำสั่งซื้อ']) ?>
-            <div id="preview-product"></div>
-            <hr>
-            <h3>หลักฐานการชำระเงิน</h3>
-            <div id="preview-payment"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">สถานะการชำระเงิน</div>
+                        <div class="panel-body">
+                            <?= $form->field($model, 'status')->inline()
+                                ->radioList([
+                                    '1' => 'รอการชำระเงิน',
+                                    '2' => 'ชำระเงินแล้ว',
+                                    '4'=>'ยกเลิกคำสั่งซื้อ'
+                                ])->label('สถานะการชำระเงิน') ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">สถานะการจัดส่ง</div>
+                        <div class="panel-body">
+                            <?php
+                                $model->del_status = isset($model->del_status)?$model->del_status:1;
+                            ?>
+                            <?= $form->field($model, 'del_status')->inline()
+                                ->radioList([
+                                    '1' => 'รอจัดส่ง',
+                                    '2' => 'จัดส่งแล้ว',
+                                ])->label('สถานะการชำระเงิน') ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">รายการสิ้นค้า</div>
+                        <div class="panel-body">
+                            <div id="preview-product"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">หลักฐานการชำระเงิน</div>
+                        <div class="panel-body">
+                            <div id="preview-payment"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="modal-footer">
             <div class="row">
