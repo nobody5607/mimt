@@ -51,12 +51,12 @@ use yii\helpers\Html;
             ['directoryAsset' => $directoryAsset]
         ) ?>
 
-        <?php 
+        <?php
             echo $this->render(
             'left.php',
             ['directoryAsset' => $directoryAsset]
         )
-        ?> 
+        ?>
          
         <?= $this->render(
             'content.php',
