@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box-header">
          <?= $this->render('_icon')?> <?=  Html::encode($this->title) ?>
          <div class="pull-right">
-             <?= Html::button(SDHtml::getBtnAdd(), ['data-url'=>Url::to(['members/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-members']). ' ' .
-		      Html::button(SDHtml::getBtnDelete(), ['data-url'=>Url::to(['members/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-members', 'disabled'=>false]) 
+             <?= Html::button(SDHtml::getBtnAdd()." เพิ่มงานอบรม", ['data-url'=>Url::to(['members/create']), 'class' => 'btn btn-success btn-sm', 'id'=>'modal-addbtn-members']). ' ' .
+		      Html::button(SDHtml::getBtnDelete()." ลบงานอบรม", ['data-url'=>Url::to(['members/deletes']), 'class' => 'btn btn-danger btn-sm', 'id'=>'modal-delbtn-members', 'disabled'=>false]) 
              ?>
          </div>
     </div>

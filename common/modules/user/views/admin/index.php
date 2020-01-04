@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'header' => Yii::t('_user', 'Admin'),
-                    'value' => function ($model) use ($dataAdminsite) {
+                    'value' => function ($model){
                         $data = \common\modules\user\classes\CNAuth::canAdmin($model->id);
                         if (!empty($data)) {
                             return '<i style="color:green;" class="glyphicon glyphicon-ok"></i>';
