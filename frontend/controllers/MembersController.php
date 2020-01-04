@@ -48,7 +48,8 @@ class MembersController extends Controller
             $date = isset($booking->date) ? SDdate::mysql2phpDate($booking->date) : '';
             $time = isset($booking->time) ? $booking->time : '';
             $end_date = isset($booking->end_date) ? $booking->end_date : '';
-            $html .= "<div class='alert alert-info'>วันที่จัดอบรม {$date} เวลาเริ่ม {$time} เวลาสิ้นสุด {$end_date}</div>";
+            $location = isset($booking->location) ? $booking->location : '';
+            $html .= "<div class='alert alert-info'>วันที่จัดอบรม {$date} เวลาเริ่ม {$time} เวลาสิ้นสุด {$end_date} สถานที่จัดอบรม: {$location}</div>";
         }
         return $html;
     }
